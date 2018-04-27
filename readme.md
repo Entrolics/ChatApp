@@ -8,7 +8,7 @@ In the chatapp directory, run the following command into terminal
 (note: you will need to have installed node.js)
 
 ```
-$ node server.js
+$ node restserver.js
 ```
 
 Now open a web browser instance and go to localhost:3000
