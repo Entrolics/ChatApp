@@ -2,7 +2,7 @@
 
 This is a very simple chat app to illustrate a sample use of NodeJS to the Entrolics Team
 
-##Running the Program
+## Running the Program
 
 In the chatapp directory, run the following command into terminal
 (note: you will need to have installed node.js)
