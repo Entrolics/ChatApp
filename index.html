@@ -1,0 +1,78 @@
+<html>
+	<head>
+	  <title>Entrolics Chat</title>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	
+	<body>
+		<div class="container-fluid">
+			<div class="row text-center">
+				<h1> Entrolics Chat </h1>
+			</div>
+			
+			<br>
+			
+			<div class = "row">
+				<div class="col-xs-4">
+					<p>Name: <input id="username" class="input-sm"/> </p>
+				</div>
+			
+				<div class="col-xs-4 panel panel-primary" style="height:400px; overflow-y: scroll;">
+					<div id="chatarea"> 
+					</div>
+				</div>
+				<div class="col-xs-4 col-xs-offset-4">
+					<form id="chat" onsubmit="chat();return false">
+						<input class="input-sm" id="chatdata" type="text" name="chatdata" />
+						<input class="btn btn-default" type="submit" value="Enter"/>
+					</form>
+				</div>
+			</div>
+				
+		
+		</div>
+
+		
+		<script>
+			var chatSize = 0;
+			
+			setInterval(function(){ update()}, 100);
+			
+			function chat() {
+				
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function(){
+					if (this.readyState == 4 && this.status == 200) {
+						
+					}
+				};
+				xhttp.open("POST", "/addchat", true);
+				xhttp.setRequestHeader("Content-type", "text/html");
+				xhttp.send("chatdata=" + document.getElementById("chatdata").value +"&username="+document.getElementById("username").value);
+
+				document.getElementById("chatdata").value = "";
+			}
+			
+			function update() {
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function(){
+					if (this.readyState == 4 && this.status == 200) {
+						var responseData = JSON.parse(this.responseText);
+						chatSize = responseData["chatSize"];
+						document.getElementById("chatarea").innerHTML += "<p>" + responseData["lastMessage"] + "</p>";
+					}
+				};
+				xhttp.open("POST", "/update", true);
+				xhttp.setRequestHeader("Content-type", "text/html");
+				xhttp.send("chatSize=" + chatSize); 
+			}
+		
+		</script>
+		
+	</body>
+
+</html>
